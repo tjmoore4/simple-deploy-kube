@@ -1,0 +1,61 @@
+---
+- name: Clone StorageOS Repo
+  git:
+    repo: https://github.com/storageos/deploy.git
+    dest: /home/vagrant/deploy
+    version: master
+
+- name: Deploy StorageOS Operator
+  command: /home/vagrant/deploy/k8s/deploy-storageos/cluster-operator/deploy-operator.sh
+
+- name: Wait for the StorageOS Operator
+  shell: kubectl get pods -n storageos-operator -o json
+  register: kubectl_get_soo_pods
+  until: kubectl_get_soo_pods.stdout|from_json|json_query('items[*].status.phase')|unique == ["Running"]
+  retries: 5
+  delay: 20
+
+- name: Create StorageOS Secret
+  shell:
+    cmd: | 
+      kubectl create -f - <<END
+      apiVersion: v1
+      kind: Secret
+      metadata:
+        name: "storageos-api"
+        namespace: "storageos-operator"
+        labels:
+          app: "storageos"
+      type: "kubernetes.io/storageos"
+      data:
+        # echo -n '<secret>' | base64
+        apiUsername: c3RvcmFnZW9z
+        apiPassword: c3RvcmFnZW9z
+      END
+
+- name: Create StorageOS Cluster
+  shell:
+    cmd: |
+      kubectl create -f - <<END
+      apiVersion: "storageos.com/v1"
+      kind: StorageOSCluster
+      metadata:
+        name: "example-storageos"
+        namespace: "storageos-operator"
+      spec:
+        secretRefName: "storageos-api" # Reference the Secret created in the previous step
+        secretRefNamespace: "storageos-operator"  # Namespace of the Secret
+        k8sDistro: "kubernetes"
+        images:
+          nodeContainer: "storageos/node:1.4.0" # StorageOS version
+        resources:
+          requests:
+          memory: "512Mi"
+      END
+
+- name: Wait for the StorageOS Cluster
+  shell: kubectl get pods -n storageos -o json
+  register: kubectl_get_soc_pods
+  until: kubectl_get_soc_pods.stdout|from_json|json_query('items[*].status.phase')|unique == ["Running"]
+  retries: 10
+  delay: 30

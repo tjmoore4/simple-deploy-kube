@@ -1,0 +1,16 @@
+---
+- name: Install Extra Packages
+  become: yes
+  yum: name={{item}} state=installed
+  with_items:
+  - golang
+  - git
+  - net-tools
+  - bind-utils
+
+- name: Disable and Stop Firewalld
+  become: yes
+  service:
+    name: "firewalld"
+    enabled: no
+    state: stopped

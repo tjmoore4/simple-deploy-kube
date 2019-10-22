@@ -1,0 +1,34 @@
+---
+- name: Run kubeadm init with Weave Overlay
+  become: yes
+  command: kubeadm init --apiserver-advertise-address={{ kubemasterip }}
+  args:
+    creates: /etc/.kubeadminit
+  when: overlay == 'weave'
+
+- name: Block kubeadm init
+  become: yes
+  command: touch /etc/.kubeadminit
+
+- name: Copy Kubeconfig To Mount
+  become: yes
+  command: cp /etc/kubernetes/admin.conf /mnt/nfsfileshare
+
+- name: Copy Kubeconfig To Home
+  become: yes
+  command: cp /etc/kubernetes/admin.conf /home/vagrant/.kube/config
+
+- name: Setup Config Permissions
+  become: yes
+  file:
+    path: /home/vagrant/.kube/config
+    owner: vagrant
+    group: vagrant
+    mode: 0644
+
+- name: Get Kubectl Version
+  shell: kubectl version | base64 | tr -d '\n'
+  register: kubectl_version
+
+- name: Taint Master Node
+  shell: kubectl taint nodes --all node-role.kubernetes.io/master-
