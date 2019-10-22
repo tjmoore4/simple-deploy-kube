@@ -3,7 +3,13 @@ Uses Vagrant and Ansible to deploy a single node Kubernetes cluster with Storage
 
 # Kubernetes Deployment
 
-This deployment requires `vagrant-hostmanager` plugin:
+The host environment needs to have the following software installed:
+
+- Git
+- VirtualBox
+- Vagrant
+
+This deployment also requires `vagrant-hostmanager` plugin:
 
 ```bash
 $ vagrant plugin install vagrant-hostmanager
@@ -13,7 +19,6 @@ $ vagrant plugin install vagrant-hostmanager
 
 ```bash
 $ vagrant up
-$ ansible-playbook -i inventory main.yml
 ```
 
 ## Post Deployment
