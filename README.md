@@ -37,11 +37,9 @@ Next, you will need to install Vagrant on your host operatoring system.
 ```
 
 
-{{% notice warning %}}vagrant 2.2.6 will error on MAC catalina when trying to install.  A work around can be found here:
-```
+<aside class="warrning">Vagrant 2.2.6 will error on MAC catalina when trying to install.  A work around can be found here:
 https://github.com/hashicorp/vagrant/issues/11127
-```
-{{% /notice %}}
+</aside>
 
 Once Installed, you will also neeed the Vagrant Host Manager, which is installed with the following command
 
@@ -81,8 +79,8 @@ git clone https://github.com/CrunchyData/postgres-operator.git
 
 And follow the installation guide provided
 
-https://access.crunchydata.com/documentation/postgres-operator/4.1.0/
+https://access.crunchydata.com/documentation/postgres-operator/4.1.0/installation/
 
 
-{{% notice tip %}}Please keep in mind that this VM is only configured to use StorageOS storage! If you’d like to use other storage options, those will need to be installed manually.
-{{% /notice %}}
+<aside class="notice">Please keep in mind that this VM is only configured to use StorageOS storage! If you’d like to use other storage options, those will need to be installed manually.
+</aside>
