@@ -1,0 +1,58 @@
+---
+- name: Add the user 'tjm'
+  become: yes
+  user:
+    name: tjm
+    shell: /bin/bash
+    groups: wheel,docker
+    password: "$6$mysecretsalt$MIJffjeQyfrKKrGkprGrDL/g2mCJa53koLmYQuuLmY9y37pDvGKPXU1Ov3RbMi.tpQ9cWvxAzUVtBLe7KrZoU."
+    append: yes
+
+- name: Add the user 'pgo'
+  become: yes
+  user:
+    name: pgo
+    shell: /bin/bash
+    password: "$6$mysecretsalt$MIJffjeQyfrKKrGkprGrDL/g2mCJa53koLmYQuuLmY9y37pDvGKPXU1Ov3RbMi.tpQ9cWvxAzUVtBLe7KrZoU."
+    groups: wheel,docker
+    append: yes
+
+- name: Create 'tjm' .kube directory
+  file:
+    path: /home/tjm/.kube
+    state: directory
+    owner: tjm
+    group: tjm
+    mode: 0700
+
+- name: Copy Kubeconfig To 'tjm' Home
+  become: yes
+  command: cp /etc/kubernetes/admin.conf /home/tjm/.kube/config
+
+- name: Setup 'tjm' Config Permissions
+  become: yes
+  file:
+    path: /home/tjm/.kube/config
+    owner: tjm
+    group: tjm
+    mode: 0644
+
+- name: Create 'pgo' .kube directory
+  file:
+    path: /home/pgo/.kube
+    state: directory
+    owner: pgo
+    group: pgo
+    mode: 0700
+
+- name: Copy Kubeconfig To 'pgo' Home
+  become: yes
+  command: cp /etc/kubernetes/admin.conf /home/pgo/.kube/config
+
+- name: Setup 'pgo' Config Permissions
+  become: yes
+  file:
+    path: /home/pgo/.kube/config
+    owner: pgo
+    group: pgo
+    mode: 0644

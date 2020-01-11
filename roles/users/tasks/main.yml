@@ -1,0 +1,18 @@
+---
+- name: Add the user 'tjm'
+  become: yes
+  user:
+    name: tjm
+    shell: /bin/bash
+    groups: wheel,docker
+    password: "$6$mysecretsalt$MIJffjeQyfrKKrGkprGrDL/g2mCJa53koLmYQuuLmY9y37pDvGKPXU1Ov3RbMi.tpQ9cWvxAzUVtBLe7KrZoU."
+    append: yes
+
+- name: Add the user 'pgo'
+  become: yes
+  user:
+    name: pgo
+    shell: /bin/bash
+    password: "$6$mysalt$NN1QGsmCO0hcvplH4ahY6ocho6F6TgcY8yNdMFAeO.LAeFodNPGA6KsQM5Or1AKbE4QKSqnEsC/SE0Zz3ts9y1"
+    groups: wheel,docker
+    append: yes

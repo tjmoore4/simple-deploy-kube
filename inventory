@@ -4,10 +4,10 @@ ansible_ssh_user=vagrant
 ansible_become_pass=vagrant
 
 [kube-masters]
-192.168.100.55
+192.168.159.8
 
 [kube-masters:vars]
-kubemasterip=192.168.100.55
+kubemasterip=192.168.159.8
 kubeletversion=kubelet-1.15.4-0
 kubectlversion=kubectl-1.15.4-0
 kubeadmversion=kubeadm-1.15.4-0
