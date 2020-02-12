@@ -16,9 +16,9 @@
 - name: Ensure User in Docker Group
   become: yes
   user:
-    name=vagrant
-    groups=docker
-    append=yes
+    name: "{{ username }}"
+    groups: docker
+    append: yes
 
 - name: Enable and Start Docker
   become: yes

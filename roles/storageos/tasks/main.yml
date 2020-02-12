@@ -2,11 +2,11 @@
 - name: Clone StorageOS Repo
   git:
     repo: https://github.com/storageos/deploy.git
-    dest: /home/vagrant/deploy
+    dest: "/home/{{ username }}/deploy"
     version: master
 
 - name: Deploy StorageOS Operator
-  command: /home/vagrant/deploy/k8s/deploy-storageos/cluster-operator/deploy-operator.sh
+  command: "/home/{{ username }}/deploy/k8s/deploy-storageos/cluster-operator/deploy-operator.sh"
 
 - name: Wait for the StorageOS Operator
   shell: kubectl get pods -n storageos-operator -o json

@@ -1,4 +1,11 @@
 ---
+- name: Ensure EPEL is enabled 
+  become: yes
+  yum: 
+    name: epel-release 
+    enablerepo: extras
+    state: present 
+
 - name: Install Extra Packages
   become: yes
   yum: name={{item}} state=installed

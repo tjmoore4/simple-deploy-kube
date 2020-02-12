@@ -47,10 +47,10 @@
 
 - name: Create .kube directory
   file:
-    path: /home/vagrant/.kube
+    path: "/home/{{ username }}/.kube"
     state: directory
-    owner: vagrant
-    group: vagrant
+    owner: "{{ username }}"
+    group: "{{ username }}"
     mode: 0700
 
 - name: Enable and Start Kubelet
