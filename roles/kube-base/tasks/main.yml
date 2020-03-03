@@ -36,6 +36,11 @@
   - "{{ kubectlversion }}"
   - "{{ kubeadmversion }}"
 
+- name: Lock Kubelet, Kubectl and Kubeadm Versions
+  become: yes
+  shell: >
+    yum versionlock kubelet kubeadm kubectl
+
 - name: Copy k8s.conf
   become: yes
   copy:
