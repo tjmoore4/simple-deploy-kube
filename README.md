@@ -3,11 +3,12 @@ to install Kubernetes and StorageOS on is already configured and ready to go.
 
 Just install Git:
 ```
-sudo yum install -y git
+sudo dnf install -y git
 ```
 and install Ansible:
 ```
-sudo yum install -y ansible
+sudo dnf install -y python3
+pip3 install ansible --user
 ```
 update the inventory file:
 ```

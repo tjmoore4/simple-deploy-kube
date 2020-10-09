@@ -10,10 +10,6 @@
   become: yes
   command: touch /etc/.kubeadminit
 
-- name: Copy Kubeconfig To Mount
-  become: yes
-  command: cp /etc/kubernetes/admin.conf /mnt/nfsfileshare
-
 - name: Copy Kubeconfig To Home
   become: yes
   command: cp /etc/kubernetes/admin.conf /home/{{ username }}/.kube/config
