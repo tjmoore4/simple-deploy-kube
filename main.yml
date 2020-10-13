@@ -1,12 +1,13 @@
 ---
 - hosts: kube-masters 
   vars:
-    overlay: "weave"
+    overlay: "calico"
   roles:
   - common
   - docker
   - kube-base
   - kube-master
-  - weave 
+  - weave
+  - calico 
   - storageos
   - users

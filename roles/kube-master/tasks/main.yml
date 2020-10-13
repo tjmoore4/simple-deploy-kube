@@ -6,6 +6,14 @@
     creates: /etc/.kubeadminit
   when: overlay == 'weave'
 
+- name: Run kubeadm init with Calico Overlay
+  become: yes
+  command: kubeadm init --pod-network-cidr={{ kubecidr }}
+  args:
+    creates: /etc/.kubeadminit
+  when: overlay == 'calico'
+
+
 - name: Block kubeadm init
   become: yes
   command: touch /etc/.kubeadminit
