@@ -9,5 +9,5 @@
   - kube-master
   - weave
   - calico 
-  - storageos
+  - rancherLPP
   - users

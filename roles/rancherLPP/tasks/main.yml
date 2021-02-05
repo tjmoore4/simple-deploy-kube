@@ -1,0 +1,6 @@
+---
+- name: Install Rancher Local Path Provisioner
+  shell: kubectl apply -f https://raw.githubusercontent.com/rancher/local-path-provisioner/v0.0.19/deploy/local-path-storage.yaml
+
+- name: Set Rancher Local Path Provisioner as Default storage
+  shell: kubectl patch storageclass local-path -p '{"metadata":{"annotations":{"storageclass.kubernetes.io/is-default-class":"true"}}}'
