@@ -1,24 +1,12 @@
 ---
-- name: Ensure EPEL is enabled 
-  become: yes
-  dnf: 
-    name: epel-release 
-    enablerepo: extras
-    state: present 
-
 - name: Install Extra Packages
   become: yes
-  dnf: 
-    name: 
-      - golang
-      - git
-      - net-tools
-      - bind-utils
-    state: latest
-
-- name: Install DNF Versionlock
-  become: yes
-  shell: dnf -y install 'dnf-command(versionlock)'
+  yum: name={{item}} state=installed
+  with_items:
+  - golang
+  - git
+  - net-tools
+  - bind-utils
 
 - name: Disable and Stop Firewalld
   become: yes

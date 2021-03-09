@@ -28,16 +28,13 @@
 
 - name: Install Kubernetes
   become: yes
-  dnf: 
-    name:
-      - "{{ kubeletversion }}"
-      - "{{ kubectlversion }}"
-      - "{{ kubeadmversion }}"
+  yum: 
+    name: "{{ item }}"
     state: installed
-
-- name: Lock Kubelet, Kubectl and Kubeadm Versions
-  become: yes
-  shell: dnf versionlock kubelet kubeadm kubectl
+  with_items:
+  - "{{ kubeletversion }}"
+  - "{{ kubectlversion }}"
+  - "{{ kubeadmversion }}"
 
 - name: Copy k8s.conf
   become: yes
@@ -50,10 +47,10 @@
 
 - name: Create .kube directory
   file:
-    path: "/home/{{ username }}/.kube"
+    path: /home/vagrant/.kube
     state: directory
-    owner: "{{ username }}"
-    group: "{{ username }}"
+    owner: vagrant
+    group: vagrant
     mode: 0700
 
 - name: Enable and Start Kubelet
@@ -62,3 +59,18 @@
     name: "kubelet"
     enabled: yes
     state: started
+
+- name: Pass bridged IPv4 traffic to iptables
+  become: yes
+  shell: >
+    sysctl net.bridge.bridge-nf-call-iptables=1
+
+- name: Pass bridged IPv6 traffic to iptables
+  become: yes
+  shell: >
+    sysctl net.bridge.bridge-nf-call-ip6tables=1
+
+- name: Refresh Kernel Settings
+  become: yes
+  shell: >
+    sysctl --system

@@ -1,17 +1,11 @@
 ---
-- name: Add Docker Repo
-  become: yes
-  shell: dnf config-manager --add-repo=https://download.docker.com/linux/centos/docker-ce.repo
-
-- name: Install containerd as required for Docker CE
-  become: yes
-  shell: dnf install -y https://download.docker.com/linux/centos/7/x86_64/stable/Packages/containerd.io-1.2.6-3.3.el7.x86_64.rpm
-
-sudo dnf install https://download.docker.com/linux/centos/7/x86_64/stable/Packages/containerd.io-1.2.6-3.3.el7.x86_64.rpm
-
 - name: Install Docker
   become: yes
-  shell: dnf install -y docker-ce --nobest
+  yum: 
+    name: "{{ item }}"
+    state: installed
+  with_items:
+  - docker
 
 - name: Ensure Docker Group
   become: yes
@@ -35,4 +29,5 @@ sudo dnf install https://download.docker.com/linux/centos/7/x86_64/stable/Packag
 
 - name: Disable SELinux
   become: yes
-  shell: setenforce 0
+  shell: >
+    setenforce 0
