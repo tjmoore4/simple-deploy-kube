@@ -1,15 +1,13 @@
 [all:vars]
 ansible_connection=local
-ansible_ssh_user=tjm
+ansible_ssh_user=vagrant
+ansible_become_pass=vagrant
 
 [kube-masters]
-192.168.159.18
+192.168.100.55
 
 [kube-masters:vars]
-kubemasterip=192.168.159.18
-kubecidr=192.168.0.0/16
-kubeletversion=kubelet-1.20.4-0
-kubectlversion=kubectl-1.20.4-0
-kubeadmversion=kubeadm-1.20.4-0
-schedulerversion=v1.20.4
-username=tjm
+kubemasterip=192.168.100.55
+kubeletversion=kubelet-1.15.4-0
+kubectlversion=kubectl-1.15.4-0
+kubeadmversion=kubeadm-1.15.4-0

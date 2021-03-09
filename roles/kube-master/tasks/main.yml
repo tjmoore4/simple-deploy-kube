@@ -6,28 +6,24 @@
     creates: /etc/.kubeadminit
   when: overlay == 'weave'
 
-- name: Run kubeadm init with Calico Overlay
-  become: yes
-  command: kubeadm init --pod-network-cidr={{ kubecidr }}
-  args:
-    creates: /etc/.kubeadminit
-  when: overlay == 'calico'
-
-
 - name: Block kubeadm init
   become: yes
   command: touch /etc/.kubeadminit
 
+- name: Copy Kubeconfig To Mount
+  become: yes
+  command: cp /etc/kubernetes/admin.conf /mnt/nfsfileshare
+
 - name: Copy Kubeconfig To Home
   become: yes
-  command: cp /etc/kubernetes/admin.conf /home/{{ username }}/.kube/config
+  command: cp /etc/kubernetes/admin.conf /home/vagrant/.kube/config
 
 - name: Setup Config Permissions
   become: yes
   file:
-    path: "/home/{{ username }}/.kube/config"
-    owner: "{{ username }}"
-    group: "{{ username }}"
+    path: /home/vagrant/.kube/config
+    owner: vagrant
+    group: vagrant
     mode: 0644
 
 - name: Get Kubectl Version
