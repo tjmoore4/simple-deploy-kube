@@ -7,7 +7,6 @@
   - docker
   - kube-base
   - kube-master
-  - weave
   - calico 
   - rancherLPP
   - users
