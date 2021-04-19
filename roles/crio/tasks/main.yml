@@ -9,13 +9,35 @@
 
 - name: Install Cri-O 
   become: yes
+<<<<<<< HEAD
   shell: dnf install cri-o
+=======
+  shell: dnf install -y cri-o
+
+- name: Force systemd to reread configs
+  become: yes
+  ansible.builtin.systemd:
+    daemon_reload: yes
+
+- name: Enable and start cri-o
+  become: yes
+  service:
+    name: "crio"
+    enabled: yes
+    state: started
+>>>>>>> b3a4cf9... Add support for Cri-O as the CRI and podman as the CE
 
 # There is an issue with the cri-o installation where files are
 # added that later conflict with the calico CIDR. Per the issue
 # below, removing these files after install allows the correct
 # settings to be configured later
 # https://github.com/cri-o/cri-o/issues/2411#issuecomment-540006558
+<<<<<<< HEAD
+=======
+# FOLLOW UP: This doesn't seem to work consistently. You may need to
+# update the 100-crio-bridge.conf file to include the expected calico
+# CIDR, i.e. 192.168.0.0/16 - see example in 'files' folder
+>>>>>>> b3a4cf9... Add support for Cri-O as the CRI and podman as the CE
 - name: Delete cri-o bridge file
   become: yes
   file:
@@ -26,6 +48,7 @@
   become: yes
   file:
     state: absent
+<<<<<<< HEAD
     path: /etc/cni/net.d/200-loopback.conf
 
 - name: Force systemd to reread configs
@@ -39,3 +62,6 @@
     name: "crio"
     enabled: yes
     state: started
+=======
+    path: /etc/cni/net.d/200-loopback.conf
+>>>>>>> b3a4cf9... Add support for Cri-O as the CRI and podman as the CE

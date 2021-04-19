@@ -8,6 +8,7 @@ ansible_ssh_user=tjm
 [kube-masters:vars]
 crioosvalue=CentOS_8
 crioversion="1.20"
+hostname=kubernetes1
 kubemasterip=192.168.159.8
 kubecidr=192.168.0.0/16
 kubeletversion=kubelet-1.20.4-0

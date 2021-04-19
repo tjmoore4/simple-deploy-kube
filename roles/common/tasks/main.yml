@@ -30,3 +30,7 @@
     name: "firewalld"
     enabled: no
     state: stopped
+
+- name: Add hostname to /etc/hotss
+  become: yes
+  shell: echo "{{ kubemasterip }} {{ hostname }}" >> /etc/hosts
