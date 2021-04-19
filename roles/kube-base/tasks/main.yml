@@ -39,7 +39,7 @@
   become: yes
   shell: dnf versionlock kubelet kubeadm kubectl
 
-- name: Copy k8s.conf
+- name: Copy sysctl k8s.conf
   become: yes
   copy:
     src: files/k8s.conf
@@ -47,6 +47,46 @@
     owner: root
     group: root
     mode: 0644
+  
+- name: Copy modules load k8s.conf
+  become: yes
+  copy:
+    src: files/modules_k8s.conf
+    dest: /etc/modules-load.d/k8s.conf
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Create crio.conf.d directory
+  become: yes
+  file:
+    path: /etc/crio/crio.conf.d
+    state: directory
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Copy cgroup driver
+  become: yes
+  copy:
+    src: files/02-cgroup-manager.conf
+    dest: /etc/crio/crio.conf.d/02-cgroup-manager.conf
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Load settings  from  all system configuration files
+  become: yes
+  command: sysctl --system
+
+- name: modprobe br_netfilter
+  become: yes
+  command: modprobe br_netfilter
+
+# https://github.com/kubernetes/kubeadm/issues/312
+- name: Set IP tables
+  become: yes
+  command: echo '1' > /proc/sys/net/bridge/bridge-nf-call-iptables
 
 - name: Create .kube directory
   file:

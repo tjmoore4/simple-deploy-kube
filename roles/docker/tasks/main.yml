@@ -30,7 +30,3 @@
     name: "docker"
     enabled: yes
     state: started
-
-- name: Disable SELinux
-  become: yes
-  shell: setenforce 0

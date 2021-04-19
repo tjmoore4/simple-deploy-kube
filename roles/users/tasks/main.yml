@@ -4,7 +4,7 @@
   user:
     name: tjm
     shell: /bin/bash
-    groups: wheel,docker
+    groups: wheel
     password: "$6$mysecretsalt$MIJffjeQyfrKKrGkprGrDL/g2mCJa53koLmYQuuLmY9y37pDvGKPXU1Ov3RbMi.tpQ9cWvxAzUVtBLe7KrZoU."
     append: yes
 
@@ -14,7 +14,7 @@
     name: pgo
     shell: /bin/bash
     password: "$6$mysecretsalt$MIJffjeQyfrKKrGkprGrDL/g2mCJa53koLmYQuuLmY9y37pDvGKPXU1Ov3RbMi.tpQ9cWvxAzUVtBLe7KrZoU."
-    groups: wheel,docker
+    groups: wheel
     append: yes
 
 - name: Create 'tjm' .kube directory

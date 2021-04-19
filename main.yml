@@ -4,7 +4,8 @@
     overlay: "calico"
   roles:
   - common
-  - docker
+#  - docker
+  - crio
   - kube-base
   - kube-master
   - calico 
