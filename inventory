@@ -3,16 +3,20 @@ ansible_connection=local
 ansible_ssh_user=tjm
 
 [kube-masters]
-192.168.159.18
+192.168.159.58
 
 [kube-masters:vars]
 crioosvalue=CentOS_8
-crioversion="1.22"
+crioversion="1.28"
 hostname=kubernetes1
-kubemasterip=192.168.159.18
+kubemasterip=192.168.159.58
 kubecidr=192.168.0.0/16
-kubeletversion=kubelet-1.22.1-0
-kubectlversion=kubectl-1.22.1-0
-kubeadmversion=kubeadm-1.22.1-0
-schedulerversion=v1.22.1
+kubeletversion=kubelet
+kubectlversion=kubectl
+kubeadmversion=kubeadm
+; starting in 1.28, install fails when versions are provided here
+; kubeletversion=kubelet-1.28.3-0
+; kubectlversion=kubectl-1.28.3-0
+; kubeadmversion=kubeadm-1.28.3-0
+schedulerversion=v1.28.3
 username=tjm

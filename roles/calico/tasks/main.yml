@@ -1,12 +1,12 @@
 ---
 - name: Install Calico Operator and CRDs
-  command: kubectl create -f https://docs.projectcalico.org/manifests/tigera-operator.yaml
+  command: kubectl create -f https://raw.githubusercontent.com/projectcalico/calico/v3.26.3/manifests/tigera-operator.yaml
   args:
     creates: /etc/.overlay
   when: overlay == 'calico'
 
 - name: Install Calico
-  command: kubectl create -f https://docs.projectcalico.org/manifests/custom-resources.yaml
+  command: kubectl create -f https://raw.githubusercontent.com/projectcalico/calico/v3.26.3/manifests/custom-resources.yaml
   when: overlay == 'calico'
 
 - name: Block Overlay

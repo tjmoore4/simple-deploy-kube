@@ -3,11 +3,11 @@
   vars:
     overlay: "calico"
   roles:
-  - common
+  # - common
 #  - docker
-  - crio
-  - kube-base
-  - kube-master
+  # - crio
+  # - kube-base
+  # - kube-master
   - calico 
   - rancherLPP
   - users

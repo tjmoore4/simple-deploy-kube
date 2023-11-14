@@ -34,4 +34,4 @@
   register: kubectl_version
 
 - name: Taint Master Node
-  shell: kubectl taint nodes --all node-role.kubernetes.io/master-
+  shell: kubectl taint nodes --all node-role.kubernetes.io/control-plane-

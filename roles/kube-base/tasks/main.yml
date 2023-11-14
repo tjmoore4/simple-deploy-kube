@@ -28,7 +28,8 @@
 
 - name: Install Kubernetes
   become: yes
-  dnf: 
+  dnf:
+    disable_excludes: kubernetes
     name:
       - "{{ kubeletversion }}"
       - "{{ kubectlversion }}"
