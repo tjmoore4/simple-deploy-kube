@@ -1,11 +1,21 @@
 ---
-- name: Set up libcontainer repo
-  become: yes
-  shell: curl -L -o /etc/yum.repos.d/devel:kubic:libcontainers:stable.repo https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/{{ crioosvalue }}/devel:kubic:libcontainers:stable.repo
+# - name: Set up libcontainer repo
+#   become: yes
+#   shell: curl -L -o /etc/yum.repos.d/devel:kubic:libcontainers:stable.repo https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/{{ crioosvalue }}/devel:kubic:libcontainers:stable.repo
 
-- name: Set up libcontainer cri-o repo
+# - name: Set up libcontainer cri-o repo
+#   become: yes
+#   shell: curl -L -o /etc/yum.repos.d/devel:kubic:libcontainers:stable:cri-o:{{ crioversion }}.repo https://download.opensuse.org/repositories/devel:kubic:libcontainers:stable:cri-o:{{ crioversion }}/{{ crioosvalue }}/devel:kubic:libcontainers:stable:cri-o:{{ crioversion }}.repo
+
+# The above steps stopped working. This solution was done manually but needs to be verified.
+- name: Copy cri-o.repo
   become: yes
-  shell: curl -L -o /etc/yum.repos.d/devel:kubic:libcontainers:stable:cri-o:{{ crioversion }}.repo https://download.opensuse.org/repositories/devel:kubic:libcontainers:stable:cri-o:{{ crioversion }}/{{ crioosvalue }}/devel:kubic:libcontainers:stable:cri-o:{{ crioversion }}.repo
+  copy:
+    src: files/cri-o.repo
+    dest: /etc/yum.repos.d/cri-o.repo
+    owner: root
+    group: root
+    mode: 0644
 
 - name: Install Cri-O 
   become: yes
