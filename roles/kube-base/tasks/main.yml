@@ -10,6 +10,10 @@
   command: swapoff --all
   ignore_errors: yes
 
+- name: IPv4 Forwarding
+  become: yes
+  command: sysctl -w net.ipv4.ip_forward=1
+
 - name: Remove swapfile from /etc/fstab
   become: yes
   mount:

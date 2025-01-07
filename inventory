@@ -3,13 +3,13 @@ ansible_connection=local
 ansible_ssh_user=tjm
 
 [kube-masters]
-192.168.159.31
+192.168.159.32
 
 [kube-masters:vars]
 crioosvalue=CentOS_8
-crioversion="1.31"
-hostname=kubernetes31
-kubemasterip=192.168.159.31
+crioversion="1.32"
+hostname=kubernetes32
+kubemasterip=192.168.159.32
 kubecidr=192.168.0.0/16
 kubeletversion=kubelet
 kubectlversion=kubectl
@@ -18,5 +18,5 @@ kubeadmversion=kubeadm
 ; kubeletversion=kubelet-1.28.3-0
 ; kubectlversion=kubectl-1.28.3-0
 ; kubeadmversion=kubeadm-1.28.3-0
-schedulerversion=v1.31.2
+# schedulerversion=v1.32.0
 username=tjm
